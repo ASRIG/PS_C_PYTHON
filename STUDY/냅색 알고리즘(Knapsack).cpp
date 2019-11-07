@@ -25,12 +25,13 @@ void knapsack2() {	// 보석이 1개
 
 int dp3[2][MAXW];
 void knapsack3() {	// 보석이 1개
-	for(int i=1; i<=n;i++)	// 보석
+	for (int i = 1; i <= n;i++)	// 보석
 		for (int j = jWeight[i]; j <= w; j++) {
 			dp3[i & 1][j] = max(dp3[(i - 1) & 1][j], dp3[(i - 1) & 1][j - jWeight[i]] + jPrice[i]);
 		}
 }
 
+// 보석이 1개만 있을 경우
 int dp4[MAXW];
 void knapsack4() {
 	for (int i = 1; i <= n; i++) {
@@ -40,12 +41,24 @@ void knapsack4() {
 	}
 }
 
+// 보석이 무한개 있을 경우
+int dp5[MAXW];
+void knapsack5() {
+	for (int i = 1; i <= n; i++) {
+		for (int j = jWeight[i]; j <= w; j++) {
+			dp5[j] = max(dp5[j], dp5[j - jWeight[i]] + jPrice[i]);
+		}
+	}
+}
+
+
 int main() {
-	n = 4; w = 10;
-	knapsack1(); knapsack2(); knapsack3(); knapsack4();
+	n = 4; w = 30;
+	knapsack1(); knapsack2(); knapsack3(); knapsack4(); knapsack5();
 	printf("max :: %d\n", dp1[w]);
 	printf("max :: %d\n", dp2[n][w]);
-	printf("max :: %d\n", dp3[n&1][w]);
+	printf("max :: %d\n", dp3[n & 1][w]);
 	printf("max :: %d\n", dp4[w]);
+	printf("max :: %d\n", dp5[w]);
 	return 0;
 }
